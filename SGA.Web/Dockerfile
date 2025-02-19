@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SGA.Server/SGA.Server.csproj", "SGA.Server/"]
-RUN dotnet restore "./SGA.Server/SGA.Server.csproj"
+COPY ["sga.Web/sga.Web.csproj", "sga.Web/"]
+RUN dotnet restore "./sga.Web/sga.Web.csproj"
 COPY . .
-WORKDIR "/src/SGA.Server"
-RUN dotnet build "./SGA.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/sga.Web"
+RUN dotnet build "./sga.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./SGA.Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./sga.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SGA.Server.dll"]
+ENTRYPOINT ["dotnet", "sga.Web.dll"]

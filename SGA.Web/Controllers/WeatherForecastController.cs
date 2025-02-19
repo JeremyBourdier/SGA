@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SGA.Server.Controllers
+namespace sga.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,4 +1,4 @@
-namespace SGA.Server
+namespace sga.Web
 {
     public class WeatherForecast
     {
