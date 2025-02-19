@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace sga.Data.Entities
 {
-    [Table("Role")]
-    public class Role
+    // Many-to-many relationship between User and Role
+    [Table("UserRole")]
+    public class UserRole
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int UserID { get; set; }
+        public int RoleID { get; set; }
     }
 }

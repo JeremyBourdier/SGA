@@ -1,4 +1,4 @@
-using sga.Data;
+using sga.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace sga.Data

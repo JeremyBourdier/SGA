@@ -1,11 +1,12 @@
-using sga.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using sga.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // 1) Obtener las cadenas de conexión
 var authConnectionString = builder.Configuration.GetConnectionString("AuthDBConnection");
+
 var academicConnectionString = builder.Configuration.GetConnectionString("AcademicDBConnection");
 
 // 2) Agregar los DbContext con SQL Server

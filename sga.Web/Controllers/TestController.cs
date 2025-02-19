@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using sga.Data;
+
 [ApiController]
 [Route("api/[controller]")]
 public class TestController : ControllerBase

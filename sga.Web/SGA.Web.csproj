@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sga.client\sga.Client.esproj" />
     <ProjectReference Include="..\SGA.Data\sga.Data.csproj" />
+    <ProjectReference Include="..\SGA.Test\sga.Test.csproj" />
   </ItemGroup>
 
 </Project>

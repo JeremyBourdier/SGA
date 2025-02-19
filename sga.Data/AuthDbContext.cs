@@ -1,4 +1,4 @@
-﻿using sga.Data;
+﻿using sga.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace sga.Data
@@ -27,6 +27,8 @@ namespace sga.Data
 
             modelBuilder.Entity<RolePermission>()
                 .HasKey(rp => new { rp.RoleID, rp.PermissionID });
+
+            
 
             // Más configuraciones Fluent API si deseas
         }

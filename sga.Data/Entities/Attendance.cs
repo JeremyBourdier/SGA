@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace sga.Data.Entities
 {
-    [Table("Degree")]
-    public class Degree
+    [Table("Attendance")]
+    public class Attendance
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int? Duration { get; set; }   // e.g. number of semesters
-        public string Modality { get; set; } // e.g. 'onsite', 'online'
+        public string Status { get; set; } // e.g. 'Present', 'Absent', 'Justified'
+        public DateTime AttendanceDate { get; set; }
+        public int EnrollmentId { get; set; }
     }
 }
