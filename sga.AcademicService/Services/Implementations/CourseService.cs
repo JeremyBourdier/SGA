@@ -1,6 +1,8 @@
 ﻿using sga.AcademicService.Services.Interfaces;
-using sga.Data.Entities;
 using sga.AcademicService.Repositories.Interfaces;
+using sga.AcademicService.DTOs;
+using sga.Data.Entities;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,41 +11,47 @@ namespace sga.AcademicService.Services.Implementations
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository courseRepository)
+        public CourseService(ICourseRepository courseRepository, IMapper mapper)
         {
             _courseRepository = courseRepository;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Course>> GetAllCoursesAsync()
+        public async Task<IEnumerable<CourseDTO>> GetAllCoursesAsync()
         {
-            return await _courseRepository.GetAllAsync();
+            var courses = await _courseRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<CourseDTO>>(courses);
         }
 
-        public async Task<Course?> GetCourseByIdAsync(int id)
+        public async Task<CourseDTO?> GetCourseByIdAsync(int id)
         {
-            return await _courseRepository.GetByIdAsync(id);
+            var course = await _courseRepository.GetByIdAsync(id);
+            return course == null ? null : _mapper.Map<CourseDTO>(course);
         }
 
-        public async Task<bool> AddCourseAsync(Course course)
+        public async Task<bool> AddCourseAsync(CourseDTO courseDto)
         {
-            if (course == null)
-                return false; // Manejo de error en caso de curso nulo.
+            if (courseDto == null)
+                return false; // Evita agregar nulos.
 
+            var course = _mapper.Map<Course>(courseDto);
             await _courseRepository.AddAsync(course);
             return true;
         }
 
-        public async Task<bool> UpdateCourseAsync(Course course)
+        public async Task<bool> UpdateCourseAsync(int id, CourseDTO courseDto)
         {
-            if (course == null)
+            if (courseDto == null)
                 return false; // Evita NullReferenceException.
 
-            var existingCourse = await _courseRepository.GetByIdAsync(course.Id);
+            var existingCourse = await _courseRepository.GetByIdAsync(id);
             if (existingCourse == null)
                 return false; // Retorna falso si el curso no existe.
 
-            await _courseRepository.UpdateAsync(course);
+            _mapper.Map(courseDto, existingCourse);
+            await _courseRepository.UpdateAsync(existingCourse);
             return true;
         }
 

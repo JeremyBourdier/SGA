@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configuración de conexión a la base de datos
 builder.Services.AddDbContext<AcademicDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AcademicDBConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("AcademicDBConnection")));
 
 // Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -24,6 +24,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("http://localhost:3000") // Cambia según el dominio de React
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Middleware
@@ -33,6 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
