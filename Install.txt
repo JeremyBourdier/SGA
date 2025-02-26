@@ -1,0 +1,38 @@
+1. Configuración del Backend (sga.AcademicService)
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package Microsoft.AspNetCore.Mvc.Versioning
+dotnet add package Microsoft.Extensions.DependencyInjection
+dotnet add package Swashbuckle.AspNetCore
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package Microsoft.IdentityModel.Tokens
+dotnet add package System.IdentityModel.Tokens.Jwt
+dotnet add package Microsoft.Extensions.Configuration.Json
+2. Configuración de Pruebas Unitarias (sga.Test)
+dotnet add package xunit
+dotnet add package Moq
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package FluentAssertions
+dotnet add package coverlet.collector
+dotnet add package Microsoft.NET.Test.Sdk
+3. Configuración del Cliente Frontend (sga.Client)
+cd sga.Client
+npm init -y
+npm install react react-dom react-router-dom axios
+npm install vite --save-dev
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/icons-material
+npm install eslint --save-dev
+npm install prettier eslint-plugin-prettier eslint-config-prettier --save-dev
+4. Configuración de Docker
+dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
+dotnet add package Microsoft.AspNetCore.Hosting
+Para generar imagen:
+docker build -t sga-academic-service .
+docker run -p 5108:80 --name sga-academic-service sga-academic-service
+5. Configuración de API Gateway (Ocelot
+dotnet add package Ocelot
+dotnet add package Microsoft.Extensions.Configuration.Json
+dotnet add package Microsoft.AspNetCore.HttpOverrides
