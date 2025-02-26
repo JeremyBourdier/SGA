@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\sga.AcademicService\sga.AcademicService.csproj" />
+    <ProjectReference Include="..\sga.AuthService\sga.AuthService.csproj" />
     <ProjectReference Include="..\SGA.Data\sga.Data.csproj" />
   </ItemGroup>
 

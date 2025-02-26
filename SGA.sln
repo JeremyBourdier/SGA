@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "sga.Client", "sga.client\sga.Client.esproj", "{73828A0E-E97F-4E9D-A241-D1E521571C9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{69FE0F78-96CB-4608-B64B-8596C76341A9} = {69FE0F78-96CB-4608-B64B-8596C76341A9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.Data", "SGA.Data\sga.Data.csproj", "{69FE0F78-96CB-4608-B64B-8596C76341A9}"
 EndProject
