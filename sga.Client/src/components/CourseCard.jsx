@@ -1,15 +1,15 @@
-import PropTypes from "prop-types";
+ï»¿import PropTypes from "prop-types";
 
 function CourseCard({ course }) {
     return (
         <div className="course-card">
             <h3>{course.code} - {course.name}</h3>
-            <p>{course.credits} Créditos</p>
+            <p>{course.credits} CrÃ©ditos</p>
         </div>
     );
 }
 
-// Validación de propiedades esperadas
+// ValidaciÃ³n de propiedades esperadas
 CourseCard.propTypes = {
     course: PropTypes.shape({
         code: PropTypes.string.isRequired,

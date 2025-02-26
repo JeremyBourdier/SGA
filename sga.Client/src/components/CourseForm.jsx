@@ -1,4 +1,4 @@
-import { useState } from "react";
+ï»¿import { useState } from "react";
 import PropTypes from "prop-types";
 
 function CourseForm({ initialValues, onSubmit }) {
@@ -17,7 +17,7 @@ function CourseForm({ initialValues, onSubmit }) {
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label">Código:</label>
+                <label className="form-label">CÃ³digo:</label>
                 <input
                     type="text"
                     name="code"
@@ -39,7 +39,7 @@ function CourseForm({ initialValues, onSubmit }) {
             </div>
 
             <div className="mb-3">
-                <label className="form-label">Créditos:</label>
+                <label className="form-label">CrÃ©ditos:</label>
                 <input
                     type="number"
                     name="credits"

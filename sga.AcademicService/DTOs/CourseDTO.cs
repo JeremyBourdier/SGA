@@ -14,7 +14,7 @@ namespace sga.AcademicService.DTOs
         [StringLength(100, ErrorMessage = "El nombre no puede superar los 100 caracteres.")]
         public string Name { get; set; } = string.Empty;  
 
-        [Range(1, 10, ErrorMessage = "Los créditos deben estar entre 1 y 10.")]
+        [Range(0, 10, ErrorMessage = "Los créditos deben estar entre 0 y 5.")]
         public int Credits { get; set; }
     }
 }

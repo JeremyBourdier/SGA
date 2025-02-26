@@ -1,33 +1,41 @@
-import { useState } from "react";
+Ôªøimport { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CourseForm from "../components/CourseForm";
 import { createCourse } from "../api/CoursesApi";
 
 function CreateCoursePage() {
     const navigate = useNavigate();
-    // Estados para mostrar mensajes en pantalla
     const [successMsg, setSuccessMsg] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const handleCreate = async (newCourse) => {
-        // ConfirmaciÛn antes de crear
         const confirmar = window.confirm(
-            `øSeguro que deseas crear el curso con cÛdigo "${newCourse.code}"?`
+            `¬øSeguro que deseas crear el curso con c√≥digo "${newCourse.code}"?`
         );
-        if (!confirmar) return; // El usuario cancelÛ
+        if (!confirmar) return;
 
         try {
             await createCourse(newCourse);
-            // Mensaje de Èxito
-            setSuccessMsg("°Curso creado exitosamente!");
+            setSuccessMsg("¬°Curso creado exitosamente!");
             setErrorMsg(null);
-            // Opcional: volver tras un breve retraso
+
             setTimeout(() => {
                 navigate("/");
             }, 2000);
+
         } catch (error) {
-            console.error("Error al crear curso", error);
-            setErrorMsg("No se pudo crear el curso. Intenta de nuevo.");
+            console.error("Error al crear curso:", error);
+
+            // Manejo m√°s detallado del error
+            if (error.response) {
+                // Si el backend devolvi√≥ un mensaje en error.response.data
+                const serverMsg = error.response.data?.message; // Ajusta la propiedad seg√∫n tu backend
+                setErrorMsg(serverMsg || "Ocurri√≥ un error al crear el curso.");
+            } else {
+                // error.request o error.message
+                setErrorMsg("No se pudo crear el curso. Verifica tu conexi√≥n o intenta de nuevo.");
+            }
+
             setSuccessMsg(null);
         }
     };
@@ -36,7 +44,7 @@ function CreateCoursePage() {
         <div className="container mt-4">
             <h1 className="mb-4">Crear Curso</h1>
 
-            {/* Alertas de Èxito o error */}
+            {/* Alertas de √©xito o error */}
             {successMsg && <div className="alert alert-success">{successMsg}</div>}
             {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 

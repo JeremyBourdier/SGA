@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ï»¿import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCourses, deleteCourse } from "../api/CoursesApi";
 
@@ -22,7 +22,7 @@ function CoursesPage() {
     }, []);
 
     const handleDelete = async (id) => {
-        if (!window.confirm("¿Eliminar este curso?")) return;
+        if (!window.confirm("Â¿Eliminar este curso?")) return;
         try {
             await deleteCourse(id);
             fetchCourses(); // recarga la lista
@@ -33,10 +33,10 @@ function CoursesPage() {
 
     return (
         <div className="container mt-4">
-            {/* Título */}
+            {/* TÃ­tulo */}
             <h1 className="mb-4">Lista de Cursos</h1>
 
-            {/* Botón para crear nuevo curso */}
+            {/* BotÃ³n para crear nuevo curso */}
             <button
                 className="btn btn-primary mb-3"
                 onClick={() => navigate("/course/create")}
@@ -55,7 +55,7 @@ function CoursesPage() {
                             className="list-group-item d-flex justify-content-between align-items-center"
                         >
                             <div>
-                                <strong>{course.code}</strong> - {course.name} ({course.credits} créditos)
+                                <strong>{course.code}</strong> - {course.name} ({course.credits} crÃ©ditos)
                             </div>
                             <div>
                                 <button
