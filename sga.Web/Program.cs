@@ -1,38 +1,62 @@
-using sga.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// 1) Obtener las cadenas de conexión
-var authConnectionString = builder.Configuration.GetConnectionString("AuthDBConnection");
-var academicConnectionString = builder.Configuration.GetConnectionString("AcademicDBConnection");
+// Cargar configuración de Ocelot
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-// 2) Agregar los DbContext con SQL Server
-builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseSqlServer(authConnectionString));
 
-builder.Services.AddDbContext<AcademicDbContext>(options =>
-    options.UseSqlServer(academicConnectionString));
+// Configurar autenticación con JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "http://localhost:5001"; // Microservicio de Autenticación
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey")),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidIssuer = "SGA.Auth",
+            ValidAudience = "SGA.Client"
+        };
+    });
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Configurar Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "SGA API Gateway",
+        Version = "v1",
+        Description = "API Gateway para el sistema de gestión académica"
+    });
+});
+
+builder.Services.AddOcelot();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SGA API Gateway v1");
+    });
 }
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+// Middleware de Ocelot
+app.UseOcelot().Wait();
 
 app.Run();

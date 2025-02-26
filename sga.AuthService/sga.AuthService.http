@@ -1,0 +1,6 @@
+@sga.AuthService_HostAddress = http://localhost:5096
+
+GET {{sga.AuthService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

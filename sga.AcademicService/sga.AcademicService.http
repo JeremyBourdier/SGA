@@ -1,0 +1,6 @@
+@sga.AcademicService_HostAddress = http://localhost:5108
+
+GET {{sga.AcademicService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
