@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using sga.AcademicService.Services.Interfaces;
-using sga.Data.Entities;
+using sga.AcademicService.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,7 +19,7 @@ namespace sga.AcademicService.Controllers
 
         // GET: api/course
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseDTO>>> GetCourses()
         {
             var courses = await _courseService.GetAllCoursesAsync();
             return Ok(courses);
@@ -27,7 +27,7 @@ namespace sga.AcademicService.Controllers
 
         // GET: api/course/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseDTO>> GetCourse(int id)
         {
             var course = await _courseService.GetCourseByIdAsync(id);
 
@@ -41,32 +41,32 @@ namespace sga.AcademicService.Controllers
 
         // POST: api/course
         [HttpPost]
-        public async Task<IActionResult> CreateCourse([FromBody] Course course)
+        public async Task<IActionResult> CreateCourse([FromBody] CourseDTO courseDto)
         {
-            if (course == null)
+            if (courseDto == null)
             {
                 return BadRequest(new { message = "El curso no puede ser nulo." });
             }
 
-            var success = await _courseService.AddCourseAsync(course);
+            var success = await _courseService.AddCourseAsync(courseDto);
             if (!success)
             {
                 return BadRequest(new { message = "No se pudo agregar el curso." });
             }
 
-            return CreatedAtAction(nameof(GetCourse), new { id = course.Id }, course);
+            return CreatedAtAction(nameof(GetCourse), new { id = courseDto.Id }, courseDto);
         }
 
         // PUT: api/course/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCourse(int id, [FromBody] Course course)
+        public async Task<IActionResult> UpdateCourse(int id, [FromBody] CourseDTO courseDto)
         {
-            if (course == null || id != course.Id)
+            if (courseDto == null)
             {
                 return BadRequest(new { message = "Datos inválidos para actualizar el curso." });
             }
 
-            var success = await _courseService.UpdateCourseAsync(course);
+            var success = await _courseService.UpdateCourseAsync(id, courseDto);
             if (!success)
             {
                 return NotFound(new { message = "Curso no encontrado." });
