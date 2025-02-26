@@ -2,7 +2,7 @@
 using sga.AcademicService.DTOs;
 using sga.Data.Entities;
 
-namespace sga.AcademicService.DTOs
+namespace sga.AcademicService.Mapping
 {
     public class MappingProfile : Profile
     {
