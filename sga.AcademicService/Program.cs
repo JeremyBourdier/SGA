@@ -4,12 +4,16 @@ using sga.AcademicService.Repositories.Implementations;
 using sga.AcademicService.Services.Interfaces;
 using sga.AcademicService.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
+using sga.AcademicService.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuración de conexión a la base de datos
 builder.Services.AddDbContext<AcademicDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AcademicDBConnection")));
+
+// Configuración de AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Configuración de inyección de dependencias
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
