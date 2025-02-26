@@ -1,0 +1,3 @@
+netstat -ano | findstr 5174
+TCP    [::1]:5173   [::]:0   LISTENING   308
+taskkill /F /PID 308

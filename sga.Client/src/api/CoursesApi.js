@@ -1,49 +1,24 @@
 ﻿import apiClient from "./apiClient";
 
 export const getCourses = async () => {
-    try {
-        const response = await apiClient.get("/Course");
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching courses", error);
-        throw error;
-    }
+    const response = await apiClient.get("/course");
+    return response.data;
 };
 
 export const getCourseById = async (id) => {
-    try {
-        const response = await apiClient.get(`/Course/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching course by ID", error);
-        throw error;
-    }
+    const response = await apiClient.get(`/course/${id}`);
+    return response.data;
 };
 
 export const createCourse = async (course) => {
-    try {
-        const response = await apiClient.post("/Course", course);
-        return response.data;
-    } catch (error) {
-        console.error("Error creating course", error);
-        throw error;
-    }
+    const response = await apiClient.post("/course", course);
+    return response.data;
 };
 
 export const updateCourse = async (id, course) => {
-    try {
-        await apiClient.put(`/Course/${id}`, course);
-    } catch (error) {
-        console.error("Error updating course", error);
-        throw error;
-    }
+    await apiClient.put(`/course/${id}`, course);
 };
 
 export const deleteCourse = async (id) => {
-    try {
-        await apiClient.delete(`/Course/${id}`);
-    } catch (error) {
-        console.error("Error deleting course", error);
-        throw error;
-    }
+    await apiClient.delete(`/course/${id}`);
 };
