@@ -4,12 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "sga.Client", "sga.client\sga.Client.esproj", "{73828A0E-E97F-4E9D-A241-D1E521571C9D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{69FE0F78-96CB-4608-B64B-8596C76341A9} = {69FE0F78-96CB-4608-B64B-8596C76341A9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.Data", "SGA.Data\sga.Data.csproj", "{69FE0F78-96CB-4608-B64B-8596C76341A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.Test", "SGA.Test\sga.Test.csproj", "{586BA04A-D115-472A-9800-28666ADD8D67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sga.Web", "sga.Web\sga.Web.csproj", "{58A60600-CBF7-41C0-8436-6177A1487055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.Web", "sga.Web\sga.Web.csproj", "{58A60600-CBF7-41C0-8436-6177A1487055}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.AuthService", "sga.AuthService\sga.AuthService.csproj", "{0F207C93-96E4-4ADC-B026-80D79E059BD1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sga.AcademicService", "sga.AcademicService\sga.AcademicService.csproj", "{4BA621A8-5DF4-4E47-8F7F-F96F6D3D8E23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +42,14 @@ Global
 		{58A60600-CBF7-41C0-8436-6177A1487055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58A60600-CBF7-41C0-8436-6177A1487055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58A60600-CBF7-41C0-8436-6177A1487055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F207C93-96E4-4ADC-B026-80D79E059BD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F207C93-96E4-4ADC-B026-80D79E059BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F207C93-96E4-4ADC-B026-80D79E059BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F207C93-96E4-4ADC-B026-80D79E059BD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA621A8-5DF4-4E47-8F7F-F96F6D3D8E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA621A8-5DF4-4E47-8F7F-F96F6D3D8E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA621A8-5DF4-4E47-8F7F-F96F6D3D8E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA621A8-5DF4-4E47-8F7F-F96F6D3D8E23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
