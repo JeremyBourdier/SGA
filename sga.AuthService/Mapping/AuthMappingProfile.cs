@@ -11,6 +11,8 @@ namespace sga.AuthService.Mapping
         {
             // Configura el mapeo entre la entidad User y el DTO UserDTO
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Role, RoleDTO>().ReverseMap();
+            CreateMap<Permission, PermissionDTO>().ReverseMap();
         }
     }
 }

@@ -22,6 +22,13 @@ builder.Services.AddAutoMapper(typeof(AuthMappingProfile));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
+
+
 // 4. Agregar controladores y swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
