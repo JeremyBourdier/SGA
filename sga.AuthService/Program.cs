@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using sga.Data;            // Donde está AuthDbContext
+using sga.Data;            // Donde estï¿½ AuthDbContext
 using sga.AuthService.Mapping;
 using sga.AuthService.Repositories.Interfaces;
 using sga.AuthService.Repositories.Implementations;
@@ -8,7 +8,7 @@ using sga.AuthService.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configuración de DbContext para AuthDBConnection
+// 1. Configuraciï¿½n de DbContext para AuthDBConnection
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("AuthDBConnection")
@@ -28,6 +28,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
 
+builder.Services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
+builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 
 // 4. Agregar controladores y swagger
 builder.Services.AddControllers();
@@ -36,7 +38,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configuración del pipeline
+// Configuraciï¿½n del pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -13,6 +13,7 @@ namespace sga.AuthService.Mapping
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Role, RoleDTO>().ReverseMap();
             CreateMap<Permission, PermissionDTO>().ReverseMap();
+            CreateMap<RolePermission, RolePermissionDTO>().ReverseMap();
         }
     }
 }
