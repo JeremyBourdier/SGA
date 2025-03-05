@@ -1,8 +1,9 @@
 using AutoMapper;
 using sga.AuthService.DTOs;
+using sga.AuthService.Repositories.Implementations;
 using sga.AuthService.Repositories.Interfaces;
 using sga.AuthService.Services.Interfaces;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -41,5 +42,6 @@ namespace sga.AuthService.Services.Implementations
         {
             await _repository.DeleteAsync(userId, roleId);
         }
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿using sga.Data.Entities;
+﻿using sga.Data.Entities.AuthService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +11,6 @@ namespace sga.AuthService.Repositories.Interfaces
         Task<bool> AddAsync(User user);
         Task<bool> UpdateAsync(User user);
         Task<bool> DeleteAsync(int id);
+        //Task<bool> UpdateAsync(UserRole userRole);
     }
 }

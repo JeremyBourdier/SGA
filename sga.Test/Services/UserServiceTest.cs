@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using sga.Data;                       // Donde está AuthDbContext
-using sga.Data.Entities;             // Donde está la entidad User
+using sga.Data.Entities.AuthService;  // Donde está la entidad User
 using sga.AuthService.DTOs;
 using sga.AuthService.Mapping;       // Donde está AuthMappingProfile
 using sga.AuthService.Repositories.Implementations;

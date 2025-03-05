@@ -5,7 +5,7 @@ using sga.AuthService.Mapping;
 using sga.AuthService.Repositories.Implementations;
 using sga.AuthService.Services.Implementations;
 using sga.Data;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,6 +52,26 @@ namespace sga.Test.Services
             var permsInDb = context.Permissions.ToList();
             Assert.Single(permsInDb);
             Assert.Equal("Write", permsInDb[0].Name);
+        }
+
+        [Fact]
+        public async Task GetAllPermissionsAsync_ReturnsAllPermissions()
+        {
+            using var context = CreateNewContext();
+            var repo = new PermissionRepository(context);
+            var mapper = GetMapper();
+            var service = new PermissionService(repo, mapper);
+
+            context.Permissions.AddRange(
+                new Permission { Name = "Read", Description = "Allows read operations" },
+                new Permission { Name = "Write", Description = "Allows write operations" }
+            );
+            await context.SaveChangesAsync();
+
+            var result = await service.GetAllPermissionsAsync();
+
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count());
         }
 
         

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sga.Data.Entities
+namespace sga.Data.Entities.AcademicService
 {
-    [Table("Attendance")]
-    public class Attendance
+    [Table("Grade")]
+    public class Grade
     {
         public int Id { get; set; }
-        public string Status { get; set; } // e.g. 'Present', 'Absent', 'Justified'
-        public DateTime AttendanceDate { get; set; }
+        public double? FinalScore { get; set; }
+        public string EvaluationType { get; set; } // e.g. 'Partial', 'Homework', 'Final'
         public int EnrollmentId { get; set; }
     }
 }

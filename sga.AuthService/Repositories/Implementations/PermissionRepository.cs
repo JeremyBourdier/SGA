@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using sga.Data;
-using sga.Data.Entities;
 using sga.AuthService.Repositories.Interfaces;
+using sga.Data.Entities.AuthService;
 
 namespace sga.AuthService.Repositories.Implementations
 {

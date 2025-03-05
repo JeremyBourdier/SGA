@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sga.Data.Entities
+namespace sga.Data.Entities.AcademicService
 {
     [Table("Teacher")]
     public class Teacher

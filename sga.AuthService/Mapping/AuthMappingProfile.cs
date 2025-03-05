@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using sga.AuthService.DTOs;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace sga.AuthService.Mapping

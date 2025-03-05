@@ -5,7 +5,7 @@ using sga.AuthService.Mapping;
 using sga.AuthService.Repositories.Implementations;
 using sga.AuthService.Services.Implementations;
 using sga.Data;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

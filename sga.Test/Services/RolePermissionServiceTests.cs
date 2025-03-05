@@ -5,7 +5,7 @@ using sga.AuthService.Mapping;
 using sga.AuthService.Repositories.Implementations;
 using sga.AuthService.Services.Implementations;
 using sga.Data;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,6 +58,28 @@ namespace sga.Test.Services
             Assert.Equal(1, all[0].RoleID);
             Assert.Equal(100, all[0].PermissionID);
         }
+
+        [Fact]
+        public async Task GetAllAsync_ReturnsAllRolePermissions()
+        {
+            using var context = CreateNewContext();
+            var repo = new RolePermissionRepository(context);
+            var mapper = GetMapper();
+            var service = new RolePermissionService(repo, mapper);
+
+            context.RolePermissions.AddRange(
+                new RolePermission { RoleID = 1, PermissionID = 100 },
+                new RolePermission { RoleID = 2, PermissionID = 200 }
+            );
+            await context.SaveChangesAsync();
+
+            var result = await service.GetAllAsync();
+
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count());
+        }
+
+        
 
         [Fact]
         public async Task DeleteAsync_DeletesRolePermission()
