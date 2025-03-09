@@ -37,6 +37,8 @@ builder.Services.AddScoped<IDegreeRepository, DegreeRepository>();
 builder.Services.AddScoped<IDegreeService, DegreeService>();
 builder.Services.AddScoped<ICourseTeacherRepository, CourseTeacherRepository>();
 builder.Services.AddScoped<ICourseTeacherService, CourseTeacherService>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 
 

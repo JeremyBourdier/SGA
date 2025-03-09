@@ -16,6 +16,7 @@ namespace sga.AcademicService.Mapping
             CreateMap<Enrollment, EnrollmentDTO>().ReverseMap();
             CreateMap<Degree, DegreeDTO>().ReverseMap();
             CreateMap<CourseTeacher, CourseTeacherDTO>().ReverseMap();
+            CreateMap<Attendance, AttendanceDTO>().ReverseMap();
         }
     }
 }
