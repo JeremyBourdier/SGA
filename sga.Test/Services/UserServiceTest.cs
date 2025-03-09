@@ -1,168 +1,116 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using sga.Data;                       // Donde está AuthDbContext
-using sga.Data.Entities.AuthService;  // Donde está la entidad User
-using sga.AuthService.DTOs;
-using sga.AuthService.Mapping;       // Donde está AuthMappingProfile
-using sga.AuthService.Repositories.Implementations;
-using sga.AuthService.Services.Implementations;
+﻿using AutoMapper;
+using Moq;
+using sga.AcademicService.DTOs;
+using sga.AcademicService.Mapping;
+using sga.AcademicService.Repositories.Interfaces;
+using sga.AcademicService.Services.Implementations;
+using sga.Data.Entities.AcademicService;
 using Xunit;
 
-namespace sga.Test.Services
+namespace sga.AcademicService.Tests
 {
-    public class UserServiceTests
+    public class TeacherServiceTests
     {
-        // Crea un AuthDbContext en memoria para cada prueba
-        private AuthDbContext CreateNewContext()
-        {
-            var options = new DbContextOptionsBuilder<AuthDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // BD única por prueba
-                .Options;
+        private readonly TeacherService _service;
+        private readonly Mock<ITeacherRepository> _repoMock;
+        private readonly IMapper _mapper;
 
-            var context = new AuthDbContext(options);
-            context.Database.EnsureDeleted(); // Limpia la BD antes de cada prueba
-            return context;
-        }
-
-        // Configura AutoMapper con el perfil de Auth
-        private IMapper GetMapper()
+        public TeacherServiceTests()
         {
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<AuthMappingProfile>());
-            return config.CreateMapper();
+            var mappingConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+
+            _mapper = mappingConfig.CreateMapper();
+            _repoMock = new Mock<ITeacherRepository>();
+            _service = new TeacherService(_repoMock.Object, _mapper);
         }
 
         [Fact]
-        public async Task GetAllUsers_ReturnsUsers()
+        public async Task GetAllTeachersAsync_ShouldReturnAllTeachers()
         {
-            // Arrange
-            using var context = CreateNewContext();
-            var userRepository = new UserRepository(context);
-            var mapper = GetMapper();
-            var userService = new UserService(userRepository, mapper);
+            _repoMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(new List<Teacher> { new Teacher { Id = 1 } });
+            var result = await _service.GetAllTeachersAsync();
 
-            // Insertar un usuario de prueba en la base de datos en memoria
-            var user = new User
-            {
-                Fullname = "John Doe",
-                Email = "john@example.com",
-                PasswordHash = "hash123",
-                Status = "active"
-            };
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
-
-            // Act
-            var result = await userService.GetAllUsersAsync();
-
-            // Assert
             Assert.NotNull(result);
-            Assert.NotEmpty(result);
-            Assert.Single(result); // solo hay 1 en la BD
-            Assert.Equal("John Doe", result.First().Fullname);
-            Assert.Equal("john@example.com", result.First().Email);
+            Assert.Single(result);
         }
 
         [Fact]
-        public async Task AddUserAsync_AddsUserCorrectly()
+        public async Task GetTeacherByIdAsync_ExistingId_ShouldReturnTeacher()
         {
-            // Arrange
-            using var context = CreateNewContext();
-            var userRepository = new UserRepository(context);
-            var mapper = GetMapper();
-            var userService = new UserService(userRepository, mapper);
+            _repoMock.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(new Teacher { Id = 1 });
 
-            var userDto = new UserDTO
-            {
-                Fullname = "Jane Smith",
-                Email = "jane@example.com",
-                PasswordHash = "hash456",
-                Status = "active"
-            };
+            var result = await _service.GetTeacherByIdAsync(1);
 
-            // Act
-            var success = await userService.AddUserAsync(userDto);
-
-            // Assert
-            Assert.True(success);
-
-            var allUsers = await context.Users.ToListAsync();
-            Assert.Single(allUsers); // Debería haber 1
-            Assert.Equal("Jane Smith", allUsers[0].Fullname);
+            Assert.NotNull(result);
+            Assert.Equal(1, result.Id);
         }
 
         [Fact]
-        public async Task GetUserByIdAsync_ReturnsNull_IfNotFound()
+        public async Task GetTeacherByIdAsync_NonExistingId_ShouldReturnNull()
         {
-            // Arrange
-            using var context = CreateNewContext();
-            var userRepository = new UserRepository(context);
-            var mapper = GetMapper();
-            var userService = new UserService(userRepository, mapper);
+            _repoMock.Setup(repo => repo.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((Teacher?)null);
 
-            // No insertamos nada en la BD
+            var result = await _service.GetTeacherByIdAsync(99);
 
-            // Act
-            var result = await userService.GetUserByIdAsync(99);
-
-            // Assert
             Assert.Null(result);
         }
 
         [Fact]
-        public async Task UpdateUserAsync_ReturnsFalse_IfUserDoesNotExist()
+        public async Task AddTeacherAsync_ShouldReturnTrue_WhenTeacherIsValid()
         {
-            // Arrange
-            using var context = CreateNewContext();
-            var userRepository = new UserRepository(context);
-            var mapper = GetMapper();
-            var userService = new UserService(userRepository, mapper);
+            var teacherDto = new TeacherDTO { UserId = 2, Department = "Math", Specialty = "Algebra" };
 
-            var userDto = new UserDTO
-            {
-                Id = 999,
-                Fullname = "Non-Existent",
-                Email = "nope@example.com"
-            };
+            _repoMock.Setup(repo => repo.AddAsync(It.IsAny<Teacher>())).ReturnsAsync(true);
 
-            // Act
-            var success = await userService.UpdateUserAsync(999, userDto);
+            var result = await _service.AddTeacherAsync(teacherDto);
 
-            // Assert
-            Assert.False(success);
+            Assert.True(result);
         }
 
         [Fact]
-        public async Task DeleteUserAsync_RemovesUser()
+        public async Task UpdateTeacherAsync_ShouldReturnTrue_WhenTeacherExists()
         {
-            // Arrange
-            using var context = CreateNewContext();
-            var userRepository = new UserRepository(context);
-            var mapper = GetMapper();
-            var userService = new UserService(userRepository, mapper);
+            var teacherDto = new TeacherDTO { Id = 1, UserId = 2, Department = "Science", Specialty = "Biology" };
+            _repoMock.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(new Teacher { Id = 1 });
 
-            // Insertar un usuario con todos los campos requeridos
-            var user = new User
-            {
-                Fullname = "ToDelete",
-                Email = "delete@example.com",
-                PasswordHash = "test-hash", 
-                Status = "active"           
-            };
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
+            var result = await _service.UpdateTeacherAsync(1, teacherDto);
 
-            // Act
-            var success = await userService.DeleteUserAsync(user.Id);
+            Assert.True(result);
+        }
 
-            // Assert
-            Assert.True(success);
+        [Fact]
+        public async Task UpdateTeacherAsync_ShouldReturnFalse_WhenTeacherDoesNotExist()
+        {
+            var teacherDto = new TeacherDTO { Id = 99, UserId = 3 };
+            _repoMock.Setup(repo => repo.GetByIdAsync(99)).ReturnsAsync((Teacher?)null);
 
-            var allUsers = await context.Users.ToListAsync();
-            Assert.Empty(allUsers); // Se borró
+            var result = await _service.UpdateTeacherAsync(99, teacherDto);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task DeleteTeacherAsync_ShouldReturnTrue_WhenTeacherExists()
+        {
+            _repoMock.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(new Teacher { Id = 1 });
+            _repoMock.Setup(repo => repo.DeleteAsync(1)).ReturnsAsync(true);
+
+            var result = await _service.DeleteTeacherAsync(1);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task DeleteTeacherAsync_ShouldReturnFalse_WhenTeacherDoesNotExist()
+        {
+            _repoMock.Setup(repo => repo.GetByIdAsync(99)).ReturnsAsync((Teacher?)null);
+
+            var result = await _service.DeleteTeacherAsync(99);
+
+            Assert.False(result);
         }
     }
 }

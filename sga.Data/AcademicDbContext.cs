@@ -29,7 +29,7 @@ namespace sga.Data
             modelBuilder.Entity<CourseTeacher>()
                 .HasKey(ct => ct.Id);
 
-            // etc...
+        
         }
     }
 }

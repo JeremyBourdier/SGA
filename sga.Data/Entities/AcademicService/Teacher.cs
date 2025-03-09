@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sga.Data.Entities.AcademicService
 {
@@ -11,7 +7,10 @@ namespace sga.Data.Entities.AcademicService
     public class Teacher
     {
         public int Id { get; set; }
-        public int UserId { get; set; }      // Soft reference to AuthDB.User
+
+        // Soft reference a AuthDB.User
+        public int UserId { get; set; }
+
         public string Department { get; set; }
         public string Specialty { get; set; }
         public DateTime? HireDate { get; set; }

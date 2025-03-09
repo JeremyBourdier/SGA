@@ -32,7 +32,7 @@ dotnet add package Microsoft.AspNetCore.Hosting
 Para generar imagen:
 docker build -t sga-academic-service .
 docker run -p 5108:80 --name sga-academic-service sga-academic-service
-5. Configuración de API Gateway (Ocelot
+5. Configuración de API Gateway (Ocelot)
 dotnet add package Ocelot
 dotnet add package Microsoft.Extensions.Configuration.Json
 dotnet add package Microsoft.AspNetCore.HttpOverrides

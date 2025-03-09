@@ -25,6 +25,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Configuración de inyección de dependencias
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+
 
 // Habilitación de CORS para el frontend en Vite (React)
 builder.Services.AddCors(options =>

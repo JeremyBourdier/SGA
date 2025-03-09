@@ -17,3 +17,4 @@ namespace sga.Data.Entities.AcademicService
         public DateTime AdmissionDate { get; set; }
     }
 }
+ 
