@@ -42,6 +42,10 @@ namespace sga.AuthService.Services.Implementations
         {
             await _repository.DeleteAsync(userId, roleId);
         }
-        
+
+        public Task<bool> UpdateAsync(UserRoleDTO userRole)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

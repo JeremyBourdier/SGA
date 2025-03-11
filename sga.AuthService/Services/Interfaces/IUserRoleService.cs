@@ -10,7 +10,6 @@ namespace sga.AuthService.Services.Interfaces
         Task<UserRoleDTO> GetByIdAsync(int userId, int roleId);
         Task AddAsync(UserRoleDTO userRoleDto);
         Task DeleteAsync(int userId, int roleId);
-
-        //Task<bool> UpdateAsync(UserRoleDTO userRole);
+        Task<bool> UpdateAsync(UserRoleDTO userRole);
     }
 }
