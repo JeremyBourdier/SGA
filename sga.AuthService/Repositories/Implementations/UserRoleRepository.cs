@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using sga.AuthService.Repositories.Interfaces;
 using sga.Data;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

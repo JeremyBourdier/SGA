@@ -1,7 +1,9 @@
-﻿import apiClient from "./apiClient";
+﻿// CoursesApi.js
+import apiClient from "./apiClient";
 
 export const getCourses = async () => {
     const response = await apiClient.get("/course");
+    // Se traduce a: http://localhost:5255/academic/course
     return response.data;
 };
 

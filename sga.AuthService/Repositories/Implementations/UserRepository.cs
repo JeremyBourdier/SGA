@@ -1,10 +1,10 @@
 ﻿using sga.Data;
-using sga.Data.Entities;
 using sga.AuthService.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using sga.Data.Entities.AuthService;
 
 namespace sga.AuthService.Repositories.Implementations
 {
@@ -83,6 +83,10 @@ namespace sga.AuthService.Repositories.Implementations
                 Console.WriteLine($"Error en DeleteAsync User: {ex.Message}");
                 return false;
             }
+
+            
         }
+
+        
     }
 }

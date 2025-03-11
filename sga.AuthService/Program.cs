@@ -31,6 +31,10 @@ builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+
+
 // 4. Agregar controladores y swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

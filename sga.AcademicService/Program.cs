@@ -25,6 +25,24 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Configuración de inyección de dependencias
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IGradeRepository, GradeRepository>();
+builder.Services.AddScoped<IGradeService, GradeService>();
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+builder.Services.AddScoped<IDegreeRepository, DegreeRepository>();
+builder.Services.AddScoped<IDegreeService, DegreeService>();
+builder.Services.AddScoped<ICourseTeacherRepository, CourseTeacherRepository>();
+builder.Services.AddScoped<ICourseTeacherService, CourseTeacherService>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+builder.Services.AddScoped<IAcademicRecordRepository, AcademicRecordRepository>();
+builder.Services.AddScoped<IAcademicRecordService, AcademicRecordService>();
+
+
 
 // Habilitación de CORS para el frontend en Vite (React)
 builder.Services.AddCors(options =>

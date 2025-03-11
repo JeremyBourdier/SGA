@@ -4,7 +4,7 @@ using AutoMapper;
 using sga.AuthService.DTOs;
 using sga.AuthService.Repositories.Interfaces;
 using sga.AuthService.Services.Interfaces;
-using sga.Data.Entities;
+using sga.Data.Entities.AuthService;
 
 namespace sga.AuthService.Services.Implementations
 {

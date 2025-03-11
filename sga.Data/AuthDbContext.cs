@@ -1,5 +1,5 @@
-﻿using sga.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using sga.Data.Entities.AuthService;
 
 namespace sga.Data
 {

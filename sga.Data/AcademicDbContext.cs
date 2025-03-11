@@ -1,5 +1,6 @@
 using sga.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using sga.Data.Entities.AcademicService;
 
 namespace sga.Data
 {
@@ -28,7 +29,7 @@ namespace sga.Data
             modelBuilder.Entity<CourseTeacher>()
                 .HasKey(ct => ct.Id);
 
-            // etc...
+        
         }
     }
 }
